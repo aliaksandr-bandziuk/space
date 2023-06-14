@@ -7,7 +7,7 @@ import { Paragraph } from "components/Paragraph";
 import Image from "next/image";
 import { theme } from "theme";
 
-export const BlockRenderer = ({blocks, sliderData }) => {
+export const BlockRenderer = ({blocks }) => {
   return blocks.map(block => {
     switch (block.name) {
       case "core/gallery": {

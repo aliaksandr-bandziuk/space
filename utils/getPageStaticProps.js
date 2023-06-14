@@ -6,7 +6,7 @@ import { mapMainMenuItems } from "./mapMainMenuItems";
 import { mapSocialIcons } from "./mapSocialIcons";
 
 export const getPageStaticProps = async (context) => {
-  console.log("CONTEXT: ", context)
+  console.log("CONTEXT: ", context);
   const uri = context.params?.slug ? `/${context.params.slug.join("/")}/` : "/";
   const { data } = await client.query({
     query: gql`
@@ -62,35 +62,45 @@ export const getPageStaticProps = async (context) => {
             }
           }
         }
-        pages {
+        posts {
           nodes {
             id
             title
             uri
+            date
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+            categories {
+              nodes {
+                name
+              }
+            }
           }
         }
       }
     `,
     variables: {
       uri,
-    }
+    },
   });
+
   const blocks = cleanAndTransformBlocks(data.nodeByUri.blocks);
+  const isHomePage = uri === "/";
+  const posts = isHomePage ? data.posts.nodes : [];
+
   return {
     props: {
-      pages: data.pages.nodes,
-      seo: data.nodeByUri.seo,
-      title: data.nodeByUri.title,
+      seo: data.nodeByUri.seo || null,
+      title: data.nodeByUri.title || null,
       logo: data.acfOptionsMainMenu.mainMenu.logo.sourceUrl,
-      mainMenuItems: mapMainMenuItems(
-        data.acfOptionsMainMenu.mainMenu.menuItems
-      ),
-      socialIcons: mapSocialIcons(
-        data.acfOptionsMainMenu.mainMenu.socialIcons
-      ),
-      // callToActionLabel: data.acfOptionsMainMenu.mainMenu.callToActionButton.label,
-      // callToActionDestination: data.acfOptionsMainMenu.mainMenu.callToActionButton.destination.uri,
+      mainMenuItems: mapMainMenuItems(data.acfOptionsMainMenu.mainMenu.menuItems),
+      socialIcons: mapSocialIcons(data.acfOptionsMainMenu.mainMenu.socialIcons),
       blocks,
-    }
+      posts, // Передаем список записей только на главной странице
+      featuredImage: data.nodeByUri.featuredImage?.node?.sourceUrl || null // добавьте это свойство
+    },
   };
 };

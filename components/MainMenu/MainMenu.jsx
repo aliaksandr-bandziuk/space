@@ -5,7 +5,7 @@ import Link from 'next/link'
 export const MainMenu = ({ items, logo, icons }) => {
   console.log("MAIN MENU: ", items)
   return (
-    <div className='bg-[#9fc783] sticky top-0 z-20'>
+    <div className='bg-[#9fc783] fixed top-0 left-0 right-0 z-10'>
       <div className="max-w-[1220px] mx-auto text-white px-[10px] h-[64px] flex">
         <Link href="/" className="py-2 flex">
           <Image

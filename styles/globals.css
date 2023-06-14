@@ -9,3 +9,7 @@
     @apply bg-[#ccbe81] hover:bg-[#ccb968] inline-block my-2 px-[15px] py-[10px] rounded-sm cursor-pointer text-white transition ease-in-out delay-150;
   }
 }
+
+img {
+  width: 100%;
+}
