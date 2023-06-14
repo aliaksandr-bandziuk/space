@@ -8,9 +8,10 @@ import { mapSocialIcons } from "./mapSocialIcons";
 export const getPageStaticProps = async (context) => {
   console.log("CONTEXT: ", context);
   const uri = context.params?.slug ? `/${context.params.slug.join("/")}/` : "/";
+  const educationId = 9; // Замените на идентификатор нужной вам категории
   const { data } = await client.query({
     query: gql`
-      query PageQuery($uri: String!) {
+      query PageQuery($uri: String!, $educationId: Int) {
         nodeByUri(uri: $uri) {
           ... on Page {
             id
@@ -62,7 +63,25 @@ export const getPageStaticProps = async (context) => {
             }
           }
         }
-        posts {
+        allPosts: posts {
+          nodes {
+            id
+            title
+            uri
+            date
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+            categories {
+              nodes {
+                name
+              }
+            }
+          }
+        }
+        educationPosts: posts(where: { categoryId: $educationId }) {
           nodes {
             id
             title
@@ -84,12 +103,14 @@ export const getPageStaticProps = async (context) => {
     `,
     variables: {
       uri,
+      educationId,
     },
   });
 
   const blocks = cleanAndTransformBlocks(data.nodeByUri.blocks);
   const isHomePage = uri === "/";
-  const posts = isHomePage ? data.posts.nodes : [];
+  const allPosts = isHomePage ? data.allPosts.nodes : [];
+  const educationPosts = isHomePage ? data.educationPosts.nodes : [];
 
   return {
     props: {
@@ -99,8 +120,9 @@ export const getPageStaticProps = async (context) => {
       mainMenuItems: mapMainMenuItems(data.acfOptionsMainMenu.mainMenu.menuItems),
       socialIcons: mapSocialIcons(data.acfOptionsMainMenu.mainMenu.socialIcons),
       blocks,
-      posts, // Передаем список записей только на главной странице
-      featuredImage: data.nodeByUri.featuredImage?.node?.sourceUrl || null // добавьте это свойство
+      allPosts, // Все записи
+      educationPosts, // Записи определенной категории
+      featuredImage: data.nodeByUri.featuredImage?.node?.sourceUrl || null,
     },
   };
 };
