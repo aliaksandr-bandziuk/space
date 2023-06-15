@@ -8,10 +8,11 @@ import { mapSocialIcons } from "./mapSocialIcons";
 export const getPageStaticProps = async (context) => {
   console.log("CONTEXT: ", context);
   const uri = context.params?.slug ? `/${context.params.slug.join("/")}/` : "/";
-  const educationId = 9; // Замените на идентификатор нужной вам категории
+  const educationId = 9;
+  const commentsId = 11;
   const { data } = await client.query({
     query: gql`
-      query PageQuery($uri: String!, $educationId: Int) {
+      query PageQuery($uri: String!, $educationId: Int, $commentsId: Int) {
         nodeByUri(uri: $uri) {
           ... on Page {
             id
@@ -99,11 +100,31 @@ export const getPageStaticProps = async (context) => {
             }
           }
         }
+        commentsPosts: posts(where: { categoryId: $commentsId }) {
+          nodes {
+            id
+            title
+            uri
+            date
+            excerpt(format: RENDERED)
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+            categories {
+              nodes {
+                name
+              }
+            }
+          }
+        }
       }
     `,
     variables: {
       uri,
       educationId,
+      commentsId,
     },
   });
 
@@ -111,6 +132,7 @@ export const getPageStaticProps = async (context) => {
   const isHomePage = uri === "/";
   const allPosts = isHomePage ? data.allPosts.nodes : [];
   const educationPosts = isHomePage ? data.educationPosts.nodes : [];
+  const commentsPosts = isHomePage ? data.commentsPosts.nodes : [];
 
   return {
     props: {
@@ -121,7 +143,8 @@ export const getPageStaticProps = async (context) => {
       socialIcons: mapSocialIcons(data.acfOptionsMainMenu.mainMenu.socialIcons),
       blocks,
       allPosts, // Все записи
-      educationPosts, // Записи определенной категории
+      educationPosts,
+      commentsPosts,
       featuredImage: data.nodeByUri.featuredImage?.node?.sourceUrl || null,
     },
   };

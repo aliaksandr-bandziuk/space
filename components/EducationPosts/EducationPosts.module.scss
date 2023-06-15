@@ -40,6 +40,7 @@
 }
 
 .image {
+  aspect-ratio: 2/3;
   object-fit: cover;
   height: clamp(9.375rem, 2.557rem + 34.09vw, 28.125rem);
 }

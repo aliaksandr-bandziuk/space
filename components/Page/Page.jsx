@@ -1,4 +1,5 @@
 import { BlockRenderer } from "components/BlockRenderer";
+import { CommentsPosts } from "components/CommentsPosts";
 import { EducationPosts } from "components/EducationPosts";
 import { MainMenu } from "components/MainMenu";
 import { Posts } from "components/Posts";
@@ -20,6 +21,7 @@ export const Page = (props) => {
       <BlockRenderer blocks={props.blocks} />
       <Posts allPosts={props.allPosts} featuredImage={props.featuredImage} />
       <EducationPosts educationPosts={props.educationPosts} featuredImage={props.featuredImage} />
+      <CommentsPosts commentsPosts={props.commentsPosts} featuredImage={props.featuredImage} />
     </>
   )
 }

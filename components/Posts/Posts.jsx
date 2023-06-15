@@ -14,12 +14,16 @@ export const Posts = ({ allPosts, featuredImage }) => {
         {lastPost && (
           <Link href={lastPost.uri} key={lastPost.id}>
             <div className={styles.imageContainer}>
-              <Image
-                src={lastPost.featuredImage?.node?.sourceUrl || featuredImage}
-                width={1000}
-                height={600}
-                className={styles.image}
-            />
+              {lastPost.featuredImage?.node?.sourceUrl ? (
+                <Image
+                  src={lastPost.featuredImage.node.sourceUrl}
+                  width={1000}
+                  height={600}
+                  className={styles.image}
+                />
+              ) : (
+                <div className={styles.noImage}>No Image Available</div>
+              )}
             </div>
             <div className={styles.postContent}>
               <div className={styles.category}>{lastPost.categories.nodes[0]?.name}</div>
@@ -36,18 +40,27 @@ export const Posts = ({ allPosts, featuredImage }) => {
         <div key={post.id} className={styles.gridItem}>
           <Link href={post.uri}>
             <div className={styles.imageContainer}>
-              <Image
-                src={post.featuredImage?.node?.sourceUrl || featuredImage}
-                width={1000}
-                height={600}
-                className={styles.image}
-              />
+              {post.featuredImage?.node?.sourceUrl ? (
+                <Image
+                  src={post.featuredImage.node.sourceUrl}
+                  width={1000}
+                  height={600}
+                  className={styles.image}
+                />
+              ) : (
+                <Image
+                  src="/no-image.jpg"
+                  width={1000}
+                  height={600}
+                  className={styles.image}
+                />
+              )}
             </div>
             <div className={styles.postContent}>
               <div className={styles.category}>{post.categories.nodes[0]?.name}</div>
               <div className={styles.contentData}>
                 <h3 className={styles.cardTitle}>{post.title}</h3>
-                <p className={styles.date}>{getFormattedDate(lastPost.date)}</p>
+                <p className={styles.date}>{getFormattedDate(post.date)}</p>
               </div>
             </div>
           </Link>
