@@ -4,6 +4,8 @@ import { gql } from "@apollo/client";
 import { cleanAndTransformBlocks } from "./cleanAndTransformBlocks";
 import { mapMainMenuItems } from "./mapMainMenuItems";
 import { mapSocialIcons } from "./mapSocialIcons";
+import { mapFooterSocialIcons } from "./mapFooterSocialIcons";
+import { mapFooterLinks } from "./mapFooterLinks";
 
 export const getPageStaticProps = async (context) => {
   console.log("CONTEXT: ", context);
@@ -57,10 +59,40 @@ export const getPageStaticProps = async (context) => {
                 destination {
                   url
                 }
-                imageLabel {
-                  sourceUrl
-                }
+                label
               }
+            }
+          }
+        }
+        acfOptionsFooter {
+          footer {
+            copyright
+            developer {
+              destination {
+                url
+              }
+              label
+            }
+            footerLinks {
+              footerLink {
+                destination {
+                  ... on Page {
+                    uri
+                  }
+                }
+                label
+              }
+            }
+            footerSocialIcons {
+              footerSocialIcon {
+                destination {
+                  url
+                }
+                label
+              }
+            }
+            footerLogo {
+              sourceUrl
             }
           }
         }
@@ -141,6 +173,11 @@ export const getPageStaticProps = async (context) => {
       logo: data.acfOptionsMainMenu.mainMenu.logo.sourceUrl,
       mainMenuItems: mapMainMenuItems(data.acfOptionsMainMenu.mainMenu.menuItems),
       socialIcons: mapSocialIcons(data.acfOptionsMainMenu.mainMenu.socialIcons),
+      copyright: data.acfOptionsFooter.footer.copyright,
+      developerLabel: data.acfOptionsFooter.footer.developer.label,
+      developerDestination: data.acfOptionsFooter.footer.developer.destination.url,
+      footerLinks: mapFooterLinks(data.acfOptionsFooter.footer.footerLinks),
+      footerSocialIcons: mapFooterSocialIcons(data.acfOptionsFooter.footer.footerSocialIcons),
       blocks,
       allPosts, // Все записи
       educationPosts,

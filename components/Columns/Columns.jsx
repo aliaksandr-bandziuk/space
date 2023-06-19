@@ -15,7 +15,7 @@ export const Columns = ({
       className="my-10"
       style={{...textColorStyle, ...backgroundColorStyle}}
     >
-      <div className={`mx-auto ${getAlignItems(verticalAlignment)} ${isStackedOnMobile ? "flex flex-col justify-center md:flex md:flex-row" : "flex"}`}>{children}</div>
+      <div className={`max-w-[1220px] mx-auto ${getAlignItems(verticalAlignment)} ${isStackedOnMobile ? "flex flex-col justify-center md:flex md:flex-row" : "flex"}`}>{children}</div>
     </div>
   )
 }

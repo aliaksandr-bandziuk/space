@@ -1,17 +1,20 @@
-import React from 'react';
+import React from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper.min.css";
 
-const Slider = ({ sliderData }) => {
+export const Slider = ({ slides }) => {
+  const formattedSlides = Array.isArray(slides) ? slides : [];
+
   return (
-    <div className="slider">
-      {sliderData.map((slide) => (
-        <div className="slide" key={slide.title}>
-          <h2>{slide.title}</h2>
-          <img src={slide.image} alt={slide.title} />
-          <a>{slide.link}</a>
-        </div>
+    <Swiper>
+      {/* Рендеринг слайдов */}
+      {formattedSlides.map((slide, index) => (
+        <SwiperSlide key={index}>
+          {/* Рендеринг содержимого слайда */}
+          <img src={slide.image} alt={slide.label} />
+          <h3>{slide.label}</h3>
+        </SwiperSlide>
       ))}
-    </div>
+    </Swiper>
   );
 };
-
-export default Slider;

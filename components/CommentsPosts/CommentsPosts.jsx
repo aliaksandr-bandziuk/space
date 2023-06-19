@@ -20,6 +20,7 @@ export const CommentsPosts = ({ commentsPosts, featuredImage }) => {
                   width={1000}
                   height={1500}
                   className={styles.image}
+                  alt={post.title}
                 />
               ) : (
                 <Image
@@ -27,6 +28,7 @@ export const CommentsPosts = ({ commentsPosts, featuredImage }) => {
                   width={1000}
                   height={1500}
                   className={styles.image}
+                  alt={post.title}
                 />
               )}
             </div>

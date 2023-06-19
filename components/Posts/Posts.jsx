@@ -20,6 +20,7 @@ export const Posts = ({ allPosts, featuredImage }) => {
                   width={1000}
                   height={600}
                   className={styles.image}
+                  alt={lastPost.title}
                 />
               ) : (
                 <div className={styles.noImage}>No Image Available</div>
@@ -46,6 +47,7 @@ export const Posts = ({ allPosts, featuredImage }) => {
                   width={1000}
                   height={600}
                   className={styles.image}
+                  alt={post.title}
                 />
               ) : (
                 <Image
@@ -53,6 +55,7 @@ export const Posts = ({ allPosts, featuredImage }) => {
                   width={1000}
                   height={600}
                   className={styles.image}
+                  alt={post.title}
                 />
               )}
             </div>

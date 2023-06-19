@@ -40,12 +40,13 @@
 }
 
 .postContent {
-  flex: 0 1 70%;
-  // position: relative;
+  // flex: 0 1 100%;
+  // // position: relative;
   padding-left: 40px;
 
   @media (max-width: 768px) {
-    flex: 0 1 100%;
+    // flex: 0 1 100%;
+    padding-left: 0;
   }
 }
 

@@ -4,6 +4,6 @@ export const mapSocialIcons = (socialIcons) => {
   return socialIcons.map((socialIcon) => ({
     id: uuid(),
     destination: socialIcon.socialIcon.destination?.url,
-    imageLabel: socialIcon.socialIcon.imageLabel.sourceUrl,
+    label: socialIcon.socialIcon.label,
   }));
 };

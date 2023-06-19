@@ -4,12 +4,22 @@ import { Cover } from "components/Cover";
 import { Gallery } from "components/Gallery";
 import { Heading } from "components/Heading";
 import { Paragraph } from "components/Paragraph";
+import { Slider } from "components/Slider";
 import Image from "next/image";
 import { theme } from "theme";
 
 export const BlockRenderer = ({blocks }) => {
   return blocks.map(block => {
     switch (block.name) {
+      case "acf/slider": {
+        console.log("SLIDER: ", block);
+        return (
+          <Slider
+            key={block.id}
+            slides={block.attributes.data}
+          />
+        );
+      }
       case "core/gallery": {
         return (
           <Gallery
@@ -41,6 +51,14 @@ export const BlockRenderer = ({blocks }) => {
             level={block.attributes.level}
             content={block.attributes.content}
             textAlign={block.attributes.textAlign}
+            textColor={
+              theme[block.attributes.textColor] || 
+              block.attributes.style?.color?.text
+            }
+            backgroundColor={
+              theme[block.attributes.backgroundColor] ||
+              block.attributes.style?.color?.background
+            }
           />
         );
       }
