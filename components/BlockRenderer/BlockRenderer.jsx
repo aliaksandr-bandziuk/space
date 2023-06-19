@@ -1,8 +1,10 @@
+import { CallToActionButton } from "components/CallToActionButton";
 import { Column } from "components/Column";
 import { Columns } from "components/Columns";
 import { Cover } from "components/Cover";
 import { Gallery } from "components/Gallery";
 import { Heading } from "components/Heading";
+import { MediaText } from "components/MediaText";
 import { Paragraph } from "components/Paragraph";
 import { Slider } from "components/Slider";
 import Image from "next/image";
@@ -11,14 +13,29 @@ import { theme } from "theme";
 export const BlockRenderer = ({blocks }) => {
   return blocks.map(block => {
     switch (block.name) {
-      case "acf/slider": {
-        console.log("SLIDER: ", block);
+      case "acf/ctabutton": {
         return (
-          <Slider
+          <CallToActionButton
             key={block.id}
-            slides={block.attributes.data}
+            buttonLabel={block.attributes.data.label}
+            destination={block.attributes.data.destination || "/"}
+            align={block.attributes.data.align}
           />
-        );
+        )
+      }
+      case "core/media-text": {
+        return (
+          <MediaText
+            key={block.id}
+            height={block.attributes.height}
+            mediaLink={block.attributes.mediaLink}
+            verticalAlignment={block.attributes.verticalAlignment}
+            mediaPosition={block.attributes.mediaPosition}
+            innerBlocks={block.innerBlocks}
+          >
+            <BlockRenderer blocks={block.innerBlocks} />
+          </MediaText>
+        )
       }
       case "core/gallery": {
         return (
@@ -67,7 +84,9 @@ export const BlockRenderer = ({blocks }) => {
         return (
           <Cover
             key={block.id}
-            background={block.attributes.url}>
+            background={block.attributes.url}
+            overlayColor={block.attributes.overlayColor}
+          >
               <BlockRenderer blocks={block.innerBlocks} />
             </Cover>
         )

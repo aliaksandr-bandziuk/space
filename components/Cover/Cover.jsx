@@ -1,8 +1,10 @@
 import Image from "next/image"
 
-export const Cover = ({children, background}) => {
+export const Cover = ({children, background, overlayColor}) => {
   return (
-    <div className="h-screen text-white bg-black bg-opacity-50 relative min-h[400px] flex justify-center items-center">
+    <div
+      className="h-screen text-white bg-black bg-opacity-50 relative min-h[400px] flex justify-center items-center"
+    >
       <Image
         alt="Cover"
         src={background}
