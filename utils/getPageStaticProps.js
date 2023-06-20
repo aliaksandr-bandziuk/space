@@ -162,7 +162,8 @@ export const getPageStaticProps = async (context) => {
 
   const blocks = cleanAndTransformBlocks(data.nodeByUri.blocks);
   const isHomePage = uri === "/";
-  const allPosts = isHomePage ? data.allPosts.nodes : [];
+  const isHomePageOrNews = uri === "/" || uri === "/news/";
+  const allPosts = isHomePageOrNews ? data.allPosts.nodes : [];
   const educationPosts = isHomePage ? data.educationPosts.nodes : [];
   const commentsPosts = isHomePage ? data.commentsPosts.nodes : [];
 
@@ -183,6 +184,7 @@ export const getPageStaticProps = async (context) => {
       educationPosts,
       commentsPosts,
       featuredImage: data.nodeByUri.featuredImage?.node?.sourceUrl || null,
+      isNewsPage: context.params?.slug?.[0] === "news", // Проверяем, является ли текущая страница страницей /news
     },
   };
 };

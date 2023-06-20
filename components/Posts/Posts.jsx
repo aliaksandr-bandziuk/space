@@ -3,9 +3,9 @@ import Link from "next/link";
 
 import styles from "./Posts.module.scss";
 
-export const Posts = ({ allPosts, featuredImage }) => {
+export const Posts = ({ allPosts, featuredImage, postLimit  }) => {
   console.log("POSTS:", allPosts);
-  const limitedPosts = allPosts ? allPosts.slice(0, 5) : [];
+  const limitedPosts = allPosts ? allPosts.slice(0, postLimit) : [];
   const lastPost = limitedPosts[0]; // Получаем последнюю запись
 
   return (
