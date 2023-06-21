@@ -16,9 +16,25 @@ export const getPageStaticProps = async (context) => {
     query: gql`
       query PageQuery($uri: String!, $educationId: Int, $commentsId: Int) {
         nodeByUri(uri: $uri) {
+          __typename
           ... on Page {
             id
             title
+            blocks
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+            seo {
+              title
+              metaDesc
+            }
+          }
+          ... on Post {
+            id
+            title
+            date
             blocks
             featuredImage {
               node {
@@ -163,14 +179,18 @@ export const getPageStaticProps = async (context) => {
   const blocks = cleanAndTransformBlocks(data.nodeByUri.blocks);
   const isHomePage = uri === "/";
   const isHomePageOrNews = uri === "/" || uri === "/news/";
+  const isHomePageOrEducation = uri === "/" || uri === "/news/education/";
   const allPosts = isHomePageOrNews ? data.allPosts.nodes : [];
-  const educationPosts = isHomePage ? data.educationPosts.nodes : [];
+  const educationPosts = isHomePageOrEducation ? data.educationPosts.nodes : [];
   const commentsPosts = isHomePage ? data.commentsPosts.nodes : [];
+
+  const isPostPage = data.nodeByUri.__typename === "Post";
 
   return {
     props: {
       seo: data.nodeByUri.seo || null,
       title: data.nodeByUri.title || null,
+      date: data.nodeByUri.date || null,
       logo: data.acfOptionsMainMenu.mainMenu.logo.sourceUrl,
       mainMenuItems: mapMainMenuItems(data.acfOptionsMainMenu.mainMenu.menuItems),
       socialIcons: mapSocialIcons(data.acfOptionsMainMenu.mainMenu.socialIcons),
@@ -183,8 +203,10 @@ export const getPageStaticProps = async (context) => {
       allPosts, // Все записи
       educationPosts,
       commentsPosts,
-      featuredImage: data.nodeByUri.featuredImage?.node?.sourceUrl || null,
+      featuredImage: data.nodeByUri.featuredImage?.node?.sourceUrl || data.nodeByUri.featuredImage?.sourceUrl || null,
       isNewsPage: context.params?.slug?.[0] === "news", // Проверяем, является ли текущая страница страницей /news
+      isEducationPage: context.params?.slug?.[0] === "news/education",
+      isPostPage: isPostPage
     },
   };
 };

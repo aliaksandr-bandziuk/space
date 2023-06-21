@@ -3,6 +3,7 @@ import { CommentsPosts } from "components/CommentsPosts";
 import { EducationPosts } from "components/EducationPosts";
 import { Footer } from "components/Footer";
 import { MainMenu } from "components/MainMenu";
+import { Post } from "components/Post";
 import { Posts } from "components/Posts";
 import Head from "next/head";
 
@@ -12,6 +13,11 @@ export const Page = (props) => {
   let postLimit = 5; // Установите ограничение по умолчанию равным 5
   if (props.isNewsPage) {
     postLimit = 9; // Установите ограничение 15 на странице /news
+  }
+
+  let educationPostLimit = 5; // Установите ограничение по умолчанию равным 5
+  if (props.isEducationPage) {
+    educationPostLimit = 9; // Установите ограничение 15 на странице /news
   }
 
   return (
@@ -25,6 +31,13 @@ export const Page = (props) => {
         logo={props.logo}
         icons={props.socialIcons}
       />
+      {props.isPostPage && 
+        <Post
+          title={props.title}
+          date={props.date}
+          featuredImage={props.featuredImage}
+        />
+      }
       <BlockRenderer blocks={props.blocks} />
       <Posts allPosts={props.allPosts} featuredImage={props.featuredImage} postLimit={postLimit} />
       <EducationPosts educationPosts={props.educationPosts} featuredImage={props.featuredImage} />

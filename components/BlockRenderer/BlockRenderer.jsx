@@ -2,10 +2,12 @@ import { CallToActionButton } from "components/CallToActionButton";
 import { Column } from "components/Column";
 import { Columns } from "components/Columns";
 import { Cover } from "components/Cover";
+import { Embed } from "components/Embed";
 import { Gallery } from "components/Gallery";
 import { Heading } from "components/Heading";
 import { MediaText } from "components/MediaText";
 import { Paragraph } from "components/Paragraph";
+import { Quote } from "components/Quote";
 import { Slider } from "components/Slider";
 import Image from "next/image";
 import { theme } from "theme";
@@ -21,6 +23,24 @@ export const BlockRenderer = ({blocks }) => {
             destination={block.attributes.data.destination || "/"}
             align={block.attributes.data.align}
           />
+        )
+      }
+      case "core/embed": {
+        return (
+          <Embed
+            key={block.id}
+            originalContent={block.originalContent}
+          />
+        )
+      }
+      case "core/quote": {
+        return (
+          <Quote
+            key={block.id}
+            dynamicContent={block.dynamicContent}
+          >
+            <BlockRenderer blocks={block.innerBlocks} />
+          </Quote>
         )
       }
       case "core/media-text": {

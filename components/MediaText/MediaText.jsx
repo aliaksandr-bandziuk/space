@@ -10,7 +10,7 @@ export const MediaText = ({
   verticalAlignment,
   mediaPosition,
   children,
-  innerBlocks}) => {
+  innerBlocks }) => {
 
   const firstContent = innerBlocks[0]?.attributes?.content;
   
@@ -21,7 +21,7 @@ export const MediaText = ({
           src={mediaLink}
           width={1000}
           height={500}
-          alt={firstContent}
+          alt={mediaLink}
         />
       </div>
       <div className="flex-1">
