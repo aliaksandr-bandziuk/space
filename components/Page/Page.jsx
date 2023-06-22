@@ -1,5 +1,6 @@
 import { BlockRenderer } from "components/BlockRenderer";
 import { CommentsPosts } from "components/CommentsPosts";
+import { Contacts } from "components/Contacts";
 import { EducationPosts } from "components/EducationPosts";
 import { Footer } from "components/Footer";
 import { MainMenu } from "components/MainMenu";
@@ -33,10 +34,14 @@ export const Page = (props) => {
       />
       {props.isPostPage && 
         <Post
+          category={props.category}
           title={props.title}
           date={props.date}
           featuredImage={props.featuredImage}
         />
+      }
+      {props.isContactsPage &&
+        <Contacts />
       }
       <BlockRenderer blocks={props.blocks} />
       <Posts allPosts={props.allPosts} featuredImage={props.featuredImage} postLimit={postLimit} />

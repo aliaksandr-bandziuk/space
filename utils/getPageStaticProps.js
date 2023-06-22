@@ -36,6 +36,11 @@ export const getPageStaticProps = async (context) => {
             title
             date
             blocks
+            categories {
+              nodes {
+                name
+              }
+            }
             featuredImage {
               node {
                 sourceUrl
@@ -180,6 +185,7 @@ export const getPageStaticProps = async (context) => {
   const isHomePage = uri === "/";
   const isHomePageOrNews = uri === "/" || uri === "/news/";
   const isHomePageOrEducation = uri === "/" || uri === "/news/education/";
+  const isContactsPage = uri === "/contacts/";
   const allPosts = isHomePageOrNews ? data.allPosts.nodes : [];
   const educationPosts = isHomePageOrEducation ? data.educationPosts.nodes : [];
   const commentsPosts = isHomePage ? data.commentsPosts.nodes : [];
@@ -191,6 +197,7 @@ export const getPageStaticProps = async (context) => {
       seo: data.nodeByUri.seo || null,
       title: data.nodeByUri.title || null,
       date: data.nodeByUri.date || null,
+      category: data.nodeByUri.categories?.nodes?.[0]?.name || null,
       logo: data.acfOptionsMainMenu.mainMenu.logo.sourceUrl,
       mainMenuItems: mapMainMenuItems(data.acfOptionsMainMenu.mainMenu.menuItems),
       socialIcons: mapSocialIcons(data.acfOptionsMainMenu.mainMenu.socialIcons),
@@ -206,7 +213,8 @@ export const getPageStaticProps = async (context) => {
       featuredImage: data.nodeByUri.featuredImage?.node?.sourceUrl || data.nodeByUri.featuredImage?.sourceUrl || null,
       isNewsPage: context.params?.slug?.[0] === "news", // Проверяем, является ли текущая страница страницей /news
       isEducationPage: context.params?.slug?.[0] === "news/education",
-      isPostPage: isPostPage
+      isPostPage: isPostPage,
+      isContactsPage: isContactsPage,
     },
   };
 };

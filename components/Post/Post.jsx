@@ -1,22 +1,26 @@
 import Image from 'next/image';
 import React from 'react'
 
-export const Post = (props) => {
+import styles from './Post.module.scss';
 
-  console.log(props);
+export const Post = (props) => {
 
   return (
     <>
-      <div className="container-top">
-        <h1>{props.title}</h1>
-        <p className="mb-2">{getFormattedDate(props.date)}</p>
+      <div className={styles.containerTop}>
+        <div className={styles.postCategory}>{props.category}</div>
+        <h1 className={styles.postHeader}>{props.title}</h1>
+        <p className={styles.postDate}>{getFormattedDate(props.date)}</p>
         {props.featuredImage && (
-          <Image
-            src={props.featuredImage}
-            width={1000}
-            height={600}
-            alt={props.title}
-          />
+          <div className={styles.imageContainer}>
+            <Image
+              src={props.featuredImage}
+              width={1000}
+              height={600}
+              alt={props.title}
+              className={styles.postImage}
+            />
+          </div>
         )}
       </div>
     </>

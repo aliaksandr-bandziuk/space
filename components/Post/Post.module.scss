@@ -1,0 +1,84 @@
+.containerTop {
+  margin-inline: auto;
+  position: relative;
+  margin-top: 60px;
+  margin-bottom: 30px;
+}
+
+.imageContainer {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(94, 92, 92, 0.5); /* Здесь можно настроить цвет и прозрачность */
+    transition: opacity 0.3s ease;
+    border-radius: 5px;
+  }
+}
+
+.postImage {
+  object-fit: cover;
+  aspect-ratio: 7/3;
+
+  @media (max-width: 768px) {
+    aspect-ratio: 3/2;
+  }
+}
+
+.postCategory {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(0.75rem, 0.705rem + 0.23vw, 0.875rem);
+  color: #fff;
+  background-color: #ccbe81;
+  padding: 5px 10px;
+  border-radius: 2px;
+  z-index: 1;
+
+  @media (max-width: 768px) {
+    top: 20px;
+  }
+}
+
+.postHeader {
+  font-family: "Roboto Slab", "serif";
+  font-weight: 500;
+  font-size: clamp(1.375rem, 0.739rem + 3.18vw, 3.125rem);
+  line-height: 120%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #fff;
+  z-index: 1;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+}
+
+.postDate {
+  font-size: 14px;
+  font-weight: 400;
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  background-color: #ccbe81;
+  padding: 3px 6px;
+  border-radius: 2px;
+  z-index: 1;
+
+  @media (max-width: 768px) {
+    bottom: 20px;
+  }
+}
