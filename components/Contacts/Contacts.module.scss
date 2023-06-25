@@ -1,0 +1,92 @@
+.contacts {
+  padding-top: 60px;
+  background-color: #f3f3f3;
+}
+
+.contactsHero {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.contactsHeroImage {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(94, 92, 92, 0.5); /* Здесь можно настроить цвет и прозрачность */
+    transition: opacity 0.3s ease;
+    border-radius: 5px;
+  }
+}
+
+.heroImage {
+  aspect-ratio: 5/2;
+  object-fit: cover;
+  width: 100%;
+  
+  @media (max-width: 768px) {
+    aspect-ratio: 3/2;
+  }
+}
+
+.contactsHeroContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 30px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 0 10px;
+  }
+}
+
+.heroTitle {
+  font-family: "Roboto Slab", "serif";
+  color: #fff;
+  font-size: clamp(1.5rem, 0.455rem + 5.23vw, 4.375rem);
+}
+.heroText {
+  font-size: clamp(1.125rem, 1.034rem + 0.45vw, 1.375rem);
+  color: #fff;
+}
+
+.directContact {
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 900px) {
+    position: relative;
+    display: block;
+  }
+}
+.contactForm {
+  flex: 1;
+  position: relative;
+
+  @media (max-width: 900px) {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+  }
+}
+.contactMap {
+  flex: 1;
+
+  @media (max-width: 900px) {
+    opacity: .3;
+  }
+}

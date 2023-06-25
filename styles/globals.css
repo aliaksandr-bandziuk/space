@@ -10,8 +10,15 @@
   }
 }
 
+@media (max-width: 350px) {
+  .btn {
+    padding: 5px 5px;
+    margin-bottom: 20px;
+  }
+}
+
 img {
-  width: 100%;
+  max-width: 100%;
 }
 
 .container {

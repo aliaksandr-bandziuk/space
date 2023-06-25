@@ -1,8 +1,11 @@
+import { getAlignItems } from "utils/layout";
+
 export const Column = ({
   children,
   width,
   textColor,
-  backgroundColor }) => {
+  backgroundColor,
+  verticalAlignment}) => {
   
   const textColorStyle = textColor ? { color: textColor } : {};
   const backgroundColorStyle = backgroundColor ? { backgroundColor } : {};
@@ -11,7 +14,7 @@ export const Column = ({
     : { flexGrow: 1, flexBasis: 0 };
   
   return (
-    <div style={{...widthStyle,...textColorStyle, ...backgroundColorStyle}} className="px-2 py-5">
+    <div style={{...widthStyle,...textColorStyle, ...backgroundColorStyle}} className={`px-2 py-5 ${getAlignItems(verticalAlignment)}`}>
       {children}
     </div>
   )

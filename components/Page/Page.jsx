@@ -41,9 +41,11 @@ export const Page = (props) => {
         />
       }
       {props.isContactsPage &&
-        <Contacts />
+        <Contacts blocks={props.blocks} />
       }
-      <BlockRenderer blocks={props.blocks} />
+      {!props.isContactsPage &&
+        <BlockRenderer blocks={props.blocks} />
+      }
       <Posts allPosts={props.allPosts} featuredImage={props.featuredImage} postLimit={postLimit} />
       <EducationPosts educationPosts={props.educationPosts} featuredImage={props.featuredImage} />
       <CommentsPosts commentsPosts={props.commentsPosts} featuredImage={props.featuredImage} />

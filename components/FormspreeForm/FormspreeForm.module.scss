@@ -1,0 +1,126 @@
+.contactForm {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+}
+
+// .form {
+
+// }
+
+form .formRow{
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0;
+  gap: 20px;
+
+  @media (max-width: 790px) {
+    margin: 10px 0;
+    gap: 10px;
+  }
+}
+form .formRow .inputData{
+  width: 100%;
+  height: 40px;
+  // margin: 0 20px;
+  position: relative;
+}
+form .formRow .textarea{
+  height: 70px;
+
+  @media (max-width: 490px) {
+    height: 40px;
+  }
+}
+.inputData input,
+.textarea textarea{
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+  font-size: 17px;
+  border-bottom: 2px solid #ccbe81;
+  outline: none;
+  padding: 0 20px;
+  background: transparent;
+}
+.inputData input:focus ~ label, .textarea textarea:focus ~ label,
+.inputData input:valid ~ label, .textarea textarea:valid ~ label{
+  transform: translate(-15px, -20px);
+  font-size: 12px;
+}
+.textarea textarea{
+  resize: none;
+  padding-top: 10px;
+}
+.inputData label{
+  position: absolute;
+  pointer-events: none;
+  bottom: 10px;
+  left: 20px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+.textarea label{
+  width: 100%;
+  bottom: 40px;
+  
+  @media (max-width: 490px) {
+    bottom: 10px;
+  }
+}
+.inputData .underline{
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+}
+.inputData .underline:before{
+  position: absolute;
+  content: "";
+  height: 2px;
+  width: 100%;
+  background: #fff;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+.inputData input:focus ~ .underline:before,
+.inputData input:valid ~ .underline:before,
+.textarea textarea:focus ~ .underline:before,
+.textarea textarea:valid ~ .underline:before{
+  transform: scale(1);
+}
+
+.popup {
+  width: 70%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-box-shadow: 1px 1px 14px -3px rgba(204, 190, 129, 1);
+  -moz-box-shadow: 1px 1px 14px -3px rgba(204, 190, 129, 1);
+  box-shadow: 1px 1px 14px -3px rgba(204, 190, 129, 1);
+  transition: all 0.3s ease;
+}
+
+.popupWrapper {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.popupTitle {
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-weight: 500;
+  color: #000;
+}
+
+.popupMessage {
+  font-size: 16px;
+  color: #000;
+}

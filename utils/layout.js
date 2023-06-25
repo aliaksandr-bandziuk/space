@@ -7,3 +7,13 @@ export const getAlignItems = (verticalAlignment) => {
 
   return `${getAlignItemsMap[verticalAlignment] || ""}`;
 };
+
+export const getAlignImage = (align) => {
+  const getAlignImageMap = {
+    left: "mr-auto",
+    center: "mx-auto",
+    right: "ml-auto",
+  };
+
+  return `${getAlignImageMap[align] || ""}`;
+};

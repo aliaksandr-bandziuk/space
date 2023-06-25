@@ -5,16 +5,27 @@ import { Cover } from "components/Cover";
 import { Embed } from "components/Embed";
 import { Gallery } from "components/Gallery";
 import { Heading } from "components/Heading";
+import { Map } from "components/Map";
 import { MediaText } from "components/MediaText";
 import { Paragraph } from "components/Paragraph";
 import { Quote } from "components/Quote";
 import { Slider } from "components/Slider";
-import Image from "next/image";
+// import Image from "next/image";
+import { ImageCustom } from "components/ImageCustom"
 import { theme } from "theme";
 
 export const BlockRenderer = ({blocks }) => {
   return blocks.map(block => {
     switch (block.name) {
+      case "acf/map": {
+        return (
+          <Map
+            key={block.id}
+          >
+            <BlockRenderer blocks={block.innerBlocks} />
+          </Map>
+        )
+      }
       case "acf/ctabutton": {
         return (
           <CallToActionButton
@@ -107,8 +118,8 @@ export const BlockRenderer = ({blocks }) => {
             background={block.attributes.url}
             overlayColor={block.attributes.overlayColor}
           >
-              <BlockRenderer blocks={block.innerBlocks} />
-            </Cover>
+            <BlockRenderer blocks={block.innerBlocks} />
+          </Cover>
         )
       }
       case "core/columns": {
@@ -160,12 +171,14 @@ export const BlockRenderer = ({blocks }) => {
       }
       case "core/image": {
         return (
-          <Image
+          <ImageCustom
             key={block.id}
             src={block.attributes.url}
             width={block.attributes.width}
             height={block.attributes.height}
             alt={block.attributes.alt || ""}
+            align={block.attributes.align}
+            href={block.attributes?.href}
           />
         )
       }
