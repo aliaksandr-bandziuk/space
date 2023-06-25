@@ -1,5 +1,8 @@
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import Link from "next/link";
+// import AOS from 'aos';
+// import 'aos/dist/aos.css';
 
 import styles from "./EducationPosts.module.scss";
 
@@ -8,10 +11,14 @@ export const EducationPosts = ({ educationPosts, featuredImage }) => {
 
   const limitedPosts = educationPosts ? educationPosts.slice(0, 4) : [];
 
+  // useEffect(() => {
+  //   AOS.init();
+  // }, []);
+
   return (
     <div className={styles.categoryWrapper}>
       {limitedPosts.map((post) => (
-        <div key={post.id} className={styles.categoryItem}>
+        <div data-aos="fade-up" key={post.id} className={styles.categoryItem}>
           <Link href={post.uri}>
             <div className={styles.imageContainer}>
               {post.featuredImage?.node?.sourceUrl ? (

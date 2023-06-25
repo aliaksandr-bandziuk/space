@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './MainMenu.module.scss';
+
+import { gsap } from 'gsap';
+import ScrollTrigger from 'gsap/dist/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
 
 export const MainMenu = ({ items, logo, icons }) => {
   const [isNavVisible, setNavVisible] = useState(false);
@@ -20,8 +24,57 @@ export const MainMenu = ({ items, logo, icons }) => {
     setOpenSubMenus([]);
   };
 
+  useEffect(() => {
+    ScrollTrigger.create({
+      start: 'top -70',
+      end: 99999,
+      toggleClass: {
+        className: styles.bgPrimaryScrolled,
+        targets: `.${styles.bgPrimary}`
+      }
+    });
+  
+    ScrollTrigger.create({
+      start: 'top -70',
+      end: 99999,
+      toggleClass: {
+        className: styles.destinationScrolled,
+        targets: `.${styles.destination}`
+      }
+    });
+
+    ScrollTrigger.create({
+      start: 'top -70',
+      end: 99999,
+      toggleClass: {
+        className: styles.iconsScrolled,
+        targets: `.${styles.icons}`
+      }
+    });
+
+    ScrollTrigger.create({
+      start: 'top -70',
+      end: 99999,
+      toggleClass: {
+        className: styles.logoImageScrolled,
+        targets: `.${styles.logoImage}`
+      }
+    });
+
+    ScrollTrigger.create({
+      start: 'top -70',
+      end: 99999,
+      toggleClass: {
+        className: styles.logoScrolled,
+        targets: `.${styles.logo}`
+      }
+    });
+  }, []);
+  
+  
+
   return (
-    <div className={styles['bg-primary']}>
+    <div className={styles.bgPrimary}>
       <div className={styles.container}>
         <div className={styles.logo}>
           <Link href="/">
@@ -38,7 +91,7 @@ export const MainMenu = ({ items, logo, icons }) => {
                   <div className={styles.destination}>
                     <Link
                       href={item.destination}
-                      className={styles['nav-link']}
+                      className={styles.navLink}
                       onClick={closeMenus}
                     >
                       {item.label}

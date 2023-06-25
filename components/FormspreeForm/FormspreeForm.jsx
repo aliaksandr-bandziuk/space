@@ -13,7 +13,7 @@ export const FormspreeForm = () => {
       setShowPopup(true);
       setTimeout(() => {
         setShowPopup(false);
-      }, 3000);
+      }, 5000);
     }
   }, [state.succeeded]);
 
@@ -63,7 +63,18 @@ export const FormspreeForm = () => {
 								<label htmlFor="form[email]">Email</label>
 						 </div>
 						 <div className={`${styles.inputData} ${styles.textarea}`}>
-              <textarea rows="8" cols="80" required></textarea>
+              <textarea
+                rows="8"
+                cols="80"
+                required
+                id="message"
+                name="message"
+                ></textarea>
+                <ValidationError 
+                  prefix="Message" 
+                  field="message"
+                  errors={state.errors}
+                />
 								<br />
 								<div className="underline"></div>
 								<label htmlFor="">Write your message</label>

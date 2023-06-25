@@ -14,7 +14,7 @@ export const Column = ({
     : { flexGrow: 1, flexBasis: 0 };
   
   return (
-    <div style={{...widthStyle,...textColorStyle, ...backgroundColorStyle}} className={`px-2 py-5 ${getAlignItems(verticalAlignment)}`}>
+    <div data-aos="fade-up" style={{...widthStyle,...textColorStyle, ...backgroundColorStyle}} className={`px-2 py-5 ${getAlignItems(verticalAlignment)}`}>
       {children}
     </div>
   )

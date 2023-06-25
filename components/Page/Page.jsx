@@ -1,3 +1,7 @@
+import React, { useEffect } from "react";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 import { BlockRenderer } from "components/BlockRenderer";
 import { CommentsPosts } from "components/CommentsPosts";
 import { Contacts } from "components/Contacts";
@@ -21,6 +25,10 @@ export const Page = (props) => {
     educationPostLimit = 9; // Установите ограничение 15 на странице /news
   }
 
+  useEffect(() => {
+    AOS.init();
+  }, []);
+
   return (
     <>
       <Head>
@@ -32,6 +40,7 @@ export const Page = (props) => {
         logo={props.logo}
         icons={props.socialIcons}
       />
+      {/* <ProgressBar /> */}
       {props.isPostPage && 
         <Post
           category={props.category}
@@ -46,9 +55,13 @@ export const Page = (props) => {
       {!props.isContactsPage &&
         <BlockRenderer blocks={props.blocks} />
       }
-      <Posts allPosts={props.allPosts} featuredImage={props.featuredImage} postLimit={postLimit} />
-      <EducationPosts educationPosts={props.educationPosts} featuredImage={props.featuredImage} />
-      <CommentsPosts commentsPosts={props.commentsPosts} featuredImage={props.featuredImage} />
+      {props.isHomePageOrNews &&
+        <Posts allPosts={props.allPosts} featuredImage={props.featuredImage} postLimit={postLimit} />
+      }
+      {props.isHomePageOrEducation &&
+        <EducationPosts educationPosts={props.educationPosts} featuredImage={props.featuredImage} />
+      }
+      <CommentsPosts data-aos="fade-up" commentsPosts={props.commentsPosts} featuredImage={props.featuredImage} />
       <Footer
         links={props.footerLinks}
         icons={props.footerSocialIcons}

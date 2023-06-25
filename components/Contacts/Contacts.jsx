@@ -24,12 +24,12 @@ export const Contacts = (props) => {
           />
         </div>
         <div className={styles.contactsHeroContent}>
-          <h1 className={styles.heroTitle}>Contact us</h1>
-          <p className={styles.heroText}>We always ready for new ideas and new contacts. Here you can call us, find us in social media or write your letter to our email. We are happy to hear, listen and see you.</p>
+          <h1 data-aos="fade-up" className={styles.heroTitle}>Contact us</h1>
+          <p data-aos="fade-up" className={styles.heroText}>We always ready for new ideas and new contacts. Here you can call us, find us in social media or write your letter to our email. We are happy to hear, listen and see you.</p>
         </div>
       </div>
       {blocks && <BlockRenderer blocks={blocks} />}
-      <div className={styles.directContact}>
+      <div data-aos="fade-up" className={styles.directContact}>
         <div className={styles.contactForm}>
           <FormspreeForm />
         </div>

@@ -12,7 +12,7 @@ export const CommentsPosts = ({ commentsPosts, featuredImage }) => {
     <div className={styles.categoryWrapper}>
       {limitedPosts.map((post) => (
         <div key={post.id} className={styles.categoryItem}>
-          <Link href={post.uri} className={styles.item}>
+          <Link data-aos="fade-up" href={post.uri} className={styles.item}>
             <div className={styles.imageContainer}>
               {post.featuredImage?.node?.sourceUrl ? (
                 <Image

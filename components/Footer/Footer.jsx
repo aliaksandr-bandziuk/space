@@ -14,7 +14,7 @@ export const Footer = ({
   return (
     <section className={styles.footer}>
       <div className={styles.container}>
-        <div className={styles.links}>
+        <div data-aos="fade-up" className={styles.links}>
           {(links || []).map((link) => (
             <div key={link.id}>
               <Link href={link.destination} className={styles.link}>
@@ -23,7 +23,7 @@ export const Footer = ({
             </div>
           ))}
         </div>
-        <div className={styles.icons}>
+        <div data-aos="fade-down" className={styles.icons}>
           {(icons || []).map((icon) => (
             <Link
               key={icon.id}

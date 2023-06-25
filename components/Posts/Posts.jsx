@@ -9,7 +9,7 @@ export const Posts = ({ allPosts, featuredImage, postLimit  }) => {
   const lastPost = limitedPosts[0]; // Получаем последнюю запись
 
   return (
-    <div className={styles.gridContainer}>
+    <div data-aos="fade-up" className={styles.gridContainer}>
       <div className={`${styles.gridItem} ${styles.gridItemLarge} ${lastPost ? styles.mainPhoto : ''}`}>
         {lastPost && (
           <Link href={lastPost.uri} key={lastPost.id}>

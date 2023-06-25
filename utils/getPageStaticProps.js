@@ -208,7 +208,9 @@ export const getPageStaticProps = async (context) => {
       footerSocialIcons: mapFooterSocialIcons(data.acfOptionsFooter.footer.footerSocialIcons),
       blocks,
       allPosts, // Все записи
+      isHomePageOrNews,
       educationPosts,
+      isHomePageOrEducation,
       commentsPosts,
       featuredImage: data.nodeByUri.featuredImage?.node?.sourceUrl || data.nodeByUri.featuredImage?.sourceUrl || null,
       isNewsPage: context.params?.slug?.[0] === "news", // Проверяем, является ли текущая страница страницей /news

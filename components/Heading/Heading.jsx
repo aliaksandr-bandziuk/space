@@ -11,7 +11,8 @@ export const Heading = ({ textAlign, content, level, textColor, backgroundColor 
     className: `font-heading max-w-[1220px] px-[10px] mx-auto mb-10 ${getFontSizeForHeading(
       level
     )} ${getTextAlign(textAlign)}`,
-    style:{...textColorStyle, ...backgroundColorStyle}
+    style: { ...textColorStyle, ...backgroundColorStyle },
+    "data-aos": "fade-up"
   });
   return tag;
 };
