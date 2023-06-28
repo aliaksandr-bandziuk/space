@@ -1,13 +1,11 @@
-import React from 'react';
-import Image from 'next/image';
-import Link from "next/link";
+import React from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
 
-import styles from "./EducationPosts.module.scss";
+import styles from './Projects.module.scss'
 
-export const EducationPosts = ({ educationPosts, featuredImage }) => {
-  console.log("POSTS:", educationPosts);
-
-  const limitedPosts = educationPosts ? educationPosts.slice(0, 4) : [];
+export const Projects = ({ projectsPosts, featuredImage }) => {
+  const limitedPosts = projectsPosts ? projectsPosts.slice(0, 4) : [];
 
   return (
     <div className={styles.categoryWrapper}>
@@ -45,7 +43,7 @@ export const EducationPosts = ({ educationPosts, featuredImage }) => {
       ))}
     </div>
   );
-};
+}
 
 const getFormattedDate = (date) => {
   const dateObj = new Date(date);

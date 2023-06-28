@@ -11,13 +11,16 @@ import { MainMenu } from "components/MainMenu";
 import { Post } from "components/Post";
 import { Posts } from "components/Posts";
 import Head from "next/head";
+import { Projects } from "components/Projects";
+import { Events } from "components/Events";
+import { NewsPage } from "components/NewsPage";
 
 export const Page = (props) => {
   console.log("PAGE PROPS: ", props);
 
   let postLimit = 5; // Установите ограничение по умолчанию равным 5
   if (props.isNewsPage) {
-    postLimit = 9; // Установите ограничение 15 на странице /news
+    postLimit = 15; // Установите ограничение 15 на странице /news
   }
 
   let educationPostLimit = 5; // Установите ограничение по умолчанию равным 5
@@ -40,7 +43,6 @@ export const Page = (props) => {
         logo={props.logo}
         icons={props.socialIcons}
       />
-      {/* <ProgressBar /> */}
       {props.isPostPage && 
         <Post
           category={props.category}
@@ -55,13 +57,22 @@ export const Page = (props) => {
       {!props.isContactsPage &&
         <BlockRenderer blocks={props.blocks} />
       }
-      {props.isHomePageOrNews &&
+      {props.isHomePage &&
         <Posts allPosts={props.allPosts} featuredImage={props.featuredImage} postLimit={postLimit} />
+      }
+      {props.isNewsPage &&
+        <NewsPage allPosts={props.allPosts} featuredImage={props.featuredImage} postLimit={postLimit} />
       }
       {props.isHomePageOrEducation &&
         <EducationPosts educationPosts={props.educationPosts} featuredImage={props.featuredImage} />
       }
+      {props.isEventsPage &&
+        <Events eventsPosts={props.eventsPosts} featuredImage={props.featuredImage} />
+      }
       <CommentsPosts data-aos="fade-up" commentsPosts={props.commentsPosts} featuredImage={props.featuredImage} />
+      {props.isHomePageOrProjects &&
+        <Projects projectsPosts={props.projectsPosts} featuredImage={props.featuredImage} />
+      }
       <Footer
         links={props.footerLinks}
         icons={props.footerSocialIcons}

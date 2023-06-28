@@ -9,14 +9,22 @@ import { Map } from "components/Map";
 import { MediaText } from "components/MediaText";
 import { Paragraph } from "components/Paragraph";
 import { Quote } from "components/Quote";
-import { Slider } from "components/Slider";
 // import Image from "next/image";
 import { ImageCustom } from "components/ImageCustom"
 import { theme } from "theme";
+import { Slider } from "components/Slider/Slider";
 
 export const BlockRenderer = ({blocks }) => {
   return blocks.map(block => {
     switch (block.name) {
+      case "acf/swiperslider": {
+        return (
+          <Slider
+            key={block.id}
+            slides={block.innerBlocks}
+          />
+        )
+      }
       case "acf/map": {
         return (
           <Map

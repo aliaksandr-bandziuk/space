@@ -90,7 +90,7 @@ export const MainMenu = ({ items, logo, icons }) => {
                 <div className={styles.linkWrapper}>
                   <div className={styles.destination}>
                     <Link
-                      href={item.destination}
+                      href={item.destination || ""}
                       className={styles.navLink}
                       onClick={closeMenus}
                     >

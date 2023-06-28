@@ -1,19 +1,16 @@
-import React from 'react';
 import Image from 'next/image';
 import Link from "next/link";
 
-import styles from "./EducationPosts.module.scss";
+import styles from "./Events.module.scss";
 
-export const EducationPosts = ({ educationPosts, featuredImage }) => {
-  console.log("POSTS:", educationPosts);
-
-  const limitedPosts = educationPosts ? educationPosts.slice(0, 4) : [];
+export const Events = ({ eventsPosts, featuredImage }) => {
+  const limitedPosts = eventsPosts ? eventsPosts.slice(0, 5) : [];
 
   return (
     <div className={styles.categoryWrapper}>
       {limitedPosts.map((post) => (
-        <div data-aos="fade-up" key={post.id} className={styles.categoryItem}>
-          <Link href={post.uri}>
+        <div key={post.id} className={styles.categoryItem}>
+          <Link data-aos="fade-up" href={post.uri} className={styles.item}>
             <div className={styles.imageContainer}>
               {post.featuredImage?.node?.sourceUrl ? (
                 <Image
@@ -34,10 +31,12 @@ export const EducationPosts = ({ educationPosts, featuredImage }) => {
               )}
             </div>
             <div className={styles.postContent}>
-              <div className={styles.category}>{post.categories.nodes[0]?.name}</div>
-              <div className={styles.contentData}>
-                <h3 className={styles.cardTitle}>{post.title}</h3>
-                <p className={styles.date}>{getFormattedDate(post.date)}</p>
+              <div className={styles.postItems}>
+                <div className={styles.category}>{post.categories.nodes[0]?.name}</div>
+                <div className={styles.contentData}>
+                  <h3 className={styles.cardTitle}>{post.title}</h3>
+                  <p className={styles.cardExcerpt}>{post.excerpt.replace(/<p>/g, '').replace(/<\/p>/g, '')}</p>
+                </div>
               </div>
             </div>
           </Link>
@@ -45,13 +44,4 @@ export const EducationPosts = ({ educationPosts, featuredImage }) => {
       ))}
     </div>
   );
-};
-
-const getFormattedDate = (date) => {
-  const dateObj = new Date(date);
-  return dateObj.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-};
+}

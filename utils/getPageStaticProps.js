@@ -12,9 +12,11 @@ export const getPageStaticProps = async (context) => {
   const uri = context.params?.slug ? `/${context.params.slug.join("/")}/` : "/";
   const educationId = 9;
   const commentsId = 11;
+  const eventsId = 12;
+  const projectsId = 13;
   const { data } = await client.query({
     query: gql`
-      query PageQuery($uri: String!, $educationId: Int, $commentsId: Int) {
+      query PageQuery($uri: String!, $educationId: Int, $commentsId: Int, $projectsId: Int, $eventsId: Int) {
         nodeByUri(uri: $uri) {
           __typename
           ... on Page {
@@ -172,23 +174,68 @@ export const getPageStaticProps = async (context) => {
             }
           }
         }
+        projectsPosts: posts(where: { categoryId: $projectsId }) {
+          nodes {
+            id
+            title
+            uri
+            date
+            excerpt(format: RENDERED)
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+            categories {
+              nodes {
+                name
+              }
+            }
+          }
+        }
+        eventsPosts: posts(where: { categoryId: $eventsId }) {
+          nodes {
+            id
+            title
+            uri
+            date
+            excerpt(format: RENDERED)
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+            categories {
+              nodes {
+                name
+              }
+            }
+          }
+        }
       }
     `,
     variables: {
       uri,
       educationId,
       commentsId,
+      projectsId,
+      eventsId,
     },
   });
 
   const blocks = cleanAndTransformBlocks(data.nodeByUri.blocks);
   const isHomePage = uri === "/";
   const isHomePageOrNews = uri === "/" || uri === "/news/";
+  const isNewspage = uri === "/news/";
   const isHomePageOrEducation = uri === "/" || uri === "/news/education/";
+  const isHomePageOrProjects = uri === "/" || uri === "/projects/";
   const isContactsPage = uri === "/contacts/";
+  const isEventsPage = uri === "/events/"
   const allPosts = isHomePageOrNews ? data.allPosts.nodes : [];
   const educationPosts = isHomePageOrEducation ? data.educationPosts.nodes : [];
   const commentsPosts = isHomePage ? data.commentsPosts.nodes : [];
+  const projectsPosts = isHomePageOrProjects ? data.projectsPosts.nodes : [];
+  const eventsPosts = isEventsPage ? data.eventsPosts.nodes: [];
 
   const isPostPage = data.nodeByUri.__typename === "Post";
 
@@ -207,14 +254,21 @@ export const getPageStaticProps = async (context) => {
       footerLinks: mapFooterLinks(data.acfOptionsFooter.footer.footerLinks),
       footerSocialIcons: mapFooterSocialIcons(data.acfOptionsFooter.footer.footerSocialIcons),
       blocks,
-      allPosts, // Все записи
+      allPosts,
+      isHomePage, // Все записи
       isHomePageOrNews,
+      isNewspage,
       educationPosts,
       isHomePageOrEducation,
+      isHomePageOrProjects,
+      isEventsPage,
       commentsPosts,
+      projectsPosts,
+      eventsPosts,
       featuredImage: data.nodeByUri.featuredImage?.node?.sourceUrl || data.nodeByUri.featuredImage?.sourceUrl || null,
       isNewsPage: context.params?.slug?.[0] === "news", // Проверяем, является ли текущая страница страницей /news
       isEducationPage: context.params?.slug?.[0] === "news/education",
+      isProjectsPage: context.params?.slug?.[0] === "news/projects",
       isPostPage: isPostPage,
       isContactsPage: isContactsPage,
     },

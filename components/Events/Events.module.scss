@@ -1,0 +1,84 @@
+.categoryWrapper {
+  max-width: 1220px;
+  margin-inline: auto;
+  padding: 0 10px;
+}
+
+.item {
+  display: flex;
+  padding: 20px 0;
+  border-top: 1px solid #ededed;
+
+  transition: all ease-in-out .2s;
+  overflow: hidden;
+
+  &:hover {
+    img {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.imageContainer {
+  flex: 0 1 30%;
+  transition: all ease-in-out .2s;
+  overflow: hidden;
+  border-radius: 5px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.image {
+  object-fit: cover;
+  border-radius: 5px;
+  aspect-ratio: 3/2;
+
+  transition: all ease-in-out .2s;
+  overflow: hidden;
+}
+
+.postContent {
+  // flex: 0 1 100%;
+  // // position: relative;
+  padding-left: 40px;
+
+  @media (max-width: 768px) {
+    // flex: 0 1 100%;
+    padding-left: 0;
+  }
+}
+
+.postItems {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+.category {
+  color: #ccbe81;
+  font-size: 14px;
+
+}
+
+.contentData {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.cardTitle {
+  font-family: "Roboto Slab", "serif";
+  font-weight: 600;
+  font-size: clamp(1.125rem, 0.966rem + 0.8vw, 1.563rem);
+  line-height: 120%;
+  color: #000;
+}
+
+.cardExcerpt {
+  color: #888888;
+  font-size: clamp(0.875rem, 0.83rem + 0.23vw, 1rem);
+  line-height: 120%;
+}
