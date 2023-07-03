@@ -14,14 +14,36 @@ import { ImageCustom } from "components/ImageCustom"
 import { theme } from "theme";
 import { Slider } from "components/Slider/Slider";
 
-export const BlockRenderer = ({blocks }) => {
+export const BlockRenderer = ({ blocks }) => {
+
+  const objToArray = (data) => {
+    const arr = [];
+    const slideCount = data.slides;
+
+    for (let i = 0; i < slideCount; i++) {
+      const slideIndex = i.toString();
+      const slide = {
+        image: data[`slides_${slideIndex}_slide_image`],
+        link: data[`slides_${slideIndex}_slide_link`],
+        link_text: data[`slides_${slideIndex}_slide_link_text`],
+        text: data[`slides_${slideIndex}_slide_text`],
+        title: data[`slides_${slideIndex}_slide_title`],
+      };
+      arr.push(slide);
+    }
+
+    return arr;
+  };
+
   return blocks.map(block => {
     switch (block.name) {
       case "acf/swiperslider": {
+        const innerBlocks = objToArray(block.attributes.data, "slides");
+        console.log("SLIDER: ", innerBlocks)
         return (
           <Slider
             key={block.id}
-            slides={block.innerBlocks}
+            slides={innerBlocks}
           />
         )
       }
@@ -93,7 +115,7 @@ export const BlockRenderer = ({blocks }) => {
             content={block.attributes.content}
             textAlign={block.attributes.align}
             textColor={
-              theme[block.attributes.textColor] || 
+              theme[block.attributes.textColor] ||
               block.attributes.style?.color?.text
             }
           />
@@ -108,7 +130,7 @@ export const BlockRenderer = ({blocks }) => {
             content={block.attributes.content}
             textAlign={block.attributes.textAlign}
             textColor={
-              theme[block.attributes.textColor] || 
+              theme[block.attributes.textColor] ||
               block.attributes.style?.color?.text
             }
             backgroundColor={
@@ -137,7 +159,7 @@ export const BlockRenderer = ({blocks }) => {
             key={block.id}
             isStackedOnMobile={block.attributes.isStackedOnMobile}
             textColor={
-              theme[block.attributes.textColor] || 
+              theme[block.attributes.textColor] ||
               block.attributes.style?.color?.text
             }
             backgroundColor={
@@ -156,7 +178,7 @@ export const BlockRenderer = ({blocks }) => {
             key={block.id}
             width={block.attributes.width}
             textColor={
-              theme[block.attributes.textColor] || 
+              theme[block.attributes.textColor] ||
               block.attributes.style?.color?.text
             }
             backgroundColor={
@@ -168,7 +190,7 @@ export const BlockRenderer = ({blocks }) => {
           </Column>
         )
       }
-      case "core/group": 
+      case "core/group":
       case "core/block": {
         return (
           <BlockRenderer

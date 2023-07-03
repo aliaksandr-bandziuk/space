@@ -235,7 +235,7 @@ export const getPageStaticProps = async (context) => {
   const educationPosts = isHomePageOrEducation ? data.educationPosts.nodes : [];
   const commentsPosts = isHomePage ? data.commentsPosts.nodes : [];
   const projectsPosts = isHomePageOrProjects ? data.projectsPosts.nodes : [];
-  const eventsPosts = isEventsPage ? data.eventsPosts.nodes: [];
+  const eventsPosts = isEventsPage ? data.eventsPosts.nodes : [];
 
   const isPostPage = data.nodeByUri.__typename === "Post";
 

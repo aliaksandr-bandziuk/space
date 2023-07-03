@@ -20,7 +20,7 @@ export const Page = (props) => {
 
   let postLimit = 5; // Установите ограничение по умолчанию равным 5
   if (props.isNewsPage) {
-    postLimit = 15; // Установите ограничение 15 на странице /news
+    postLimit = 20; // Установите ограничение 15 на странице /news
   }
 
   let educationPostLimit = 5; // Установите ограничение по умолчанию равным 5
@@ -43,7 +43,7 @@ export const Page = (props) => {
         logo={props.logo}
         icons={props.socialIcons}
       />
-      {props.isPostPage && 
+      {props.isPostPage &&
         <Post
           category={props.category}
           title={props.title}
