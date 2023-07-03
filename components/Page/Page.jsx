@@ -14,6 +14,8 @@ import Head from "next/head";
 import { Projects } from "components/Projects";
 import { Events } from "components/Events";
 import { NewsPage } from "components/NewsPage";
+import { EducationPage } from "components/EducationPage";
+import { ScrollToTopButton } from "components/ScrollToTopButton";
 
 export const Page = (props) => {
   console.log("PAGE PROPS: ", props);
@@ -24,9 +26,9 @@ export const Page = (props) => {
   }
 
   let educationPostLimit = 5; // Установите ограничение по умолчанию равным 5
-  if (props.isEducationPage) {
-    educationPostLimit = 9; // Установите ограничение 15 на странице /news
-  }
+  // if (props.isEducationPage) {
+  //   educationPostLimit = 9; // Установите ограничение 15 на странице /news
+  // }
 
   useEffect(() => {
     AOS.init();
@@ -58,20 +60,21 @@ export const Page = (props) => {
         <BlockRenderer blocks={props.blocks} />
       }
       {props.isHomePage &&
-        <Posts allPosts={props.allPosts} featuredImage={props.featuredImage} postLimit={postLimit} />
+        <>
+          <Posts allPosts={props.allPosts} featuredImage={props.featuredImage} postLimit={postLimit} />
+          <EducationPosts educationPosts={props.educationPosts} featuredImage={props.featuredImage} />
+          <CommentsPosts data-aos="fade-up" commentsPosts={props.commentsPosts} featuredImage={props.featuredImage} />
+          <Projects projectsPosts={props.projectsPosts} featuredImage={props.featuredImage} />
+        </>
       }
       {props.isNewsPage &&
         <NewsPage allPosts={props.allPosts} featuredImage={props.featuredImage} postLimit={postLimit} />
       }
-      {props.isHomePageOrEducation &&
-        <EducationPosts educationPosts={props.educationPosts} featuredImage={props.featuredImage} />
+      {props.isEducationPage &&
+        <EducationPage educationPosts={props.educationPosts} featuredImage={props.featuredImage} educationPostLimit={educationPostLimit} />
       }
       {props.isEventsPage &&
         <Events eventsPosts={props.eventsPosts} featuredImage={props.featuredImage} />
-      }
-      <CommentsPosts data-aos="fade-up" commentsPosts={props.commentsPosts} featuredImage={props.featuredImage} />
-      {props.isHomePageOrProjects &&
-        <Projects projectsPosts={props.projectsPosts} featuredImage={props.featuredImage} />
       }
       <Footer
         links={props.footerLinks}
@@ -81,6 +84,7 @@ export const Page = (props) => {
         developerDestination={props.developerDestination}
         logo={props.logo}
       />
+      <ScrollToTopButton />
     </>
   )
 }

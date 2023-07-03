@@ -7,7 +7,7 @@ import { Pagination } from "components/Pagination";
 
 export const NewsPage = ({ allPosts, featuredImage, postLimit }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = 5;
+  const postsPerPage = 9;
 
   // Определяем индексы постов, которые будут отображаться на текущей странице
   const indexOfLastPost = currentPage * postsPerPage;
@@ -100,6 +100,7 @@ export const NewsPage = ({ allPosts, featuredImage, postLimit }) => {
             totalPages={Math.ceil(allPosts.length / postsPerPage)}
             currentPage={currentPage}
             onPageChange={handlePageChange}
+            postLimit={postLimit}
           />
         )}
       </div>

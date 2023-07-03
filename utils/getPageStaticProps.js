@@ -119,7 +119,7 @@ export const getPageStaticProps = async (context) => {
             }
           }
         }
-        allPosts: posts {
+        allPosts: posts(first: 10000) {
           nodes {
             id
             title
@@ -137,7 +137,7 @@ export const getPageStaticProps = async (context) => {
             }
           }
         }
-        educationPosts: posts(where: { categoryId: $educationId }) {
+        educationPosts: posts(first: 1000, where: { categoryId: $educationId }) {
           nodes {
             id
             title
@@ -155,26 +155,7 @@ export const getPageStaticProps = async (context) => {
             }
           }
         }
-        commentsPosts: posts(where: { categoryId: $commentsId }) {
-          nodes {
-            id
-            title
-            uri
-            date
-            excerpt(format: RENDERED)
-            featuredImage {
-              node {
-                sourceUrl
-              }
-            }
-            categories {
-              nodes {
-                name
-              }
-            }
-          }
-        }
-        projectsPosts: posts(where: { categoryId: $projectsId }) {
+        commentsPosts: posts(first: 1000, where: { categoryId: $commentsId }) {
           nodes {
             id
             title
@@ -193,7 +174,26 @@ export const getPageStaticProps = async (context) => {
             }
           }
         }
-        eventsPosts: posts(where: { categoryId: $eventsId }) {
+        projectsPosts: posts(first: 1000, where: { categoryId: $projectsId }) {
+          nodes {
+            id
+            title
+            uri
+            date
+            excerpt(format: RENDERED)
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+            categories {
+              nodes {
+                name
+              }
+            }
+          }
+        }
+        eventsPosts: posts(first: 1000, where: { categoryId: $eventsId }) {
           nodes {
             id
             title
@@ -227,6 +227,7 @@ export const getPageStaticProps = async (context) => {
   const isHomePage = uri === "/";
   const isHomePageOrNews = uri === "/" || uri === "/news/";
   const isNewspage = uri === "/news/";
+  const isEducationPage = uri === "/news/education/";
   const isHomePageOrEducation = uri === "/" || uri === "/news/education/";
   const isHomePageOrProjects = uri === "/" || uri === "/projects/";
   const isContactsPage = uri === "/contacts/";
@@ -258,6 +259,7 @@ export const getPageStaticProps = async (context) => {
       isHomePage, // Все записи
       isHomePageOrNews,
       isNewspage,
+      isEducationPage,
       educationPosts,
       isHomePageOrEducation,
       isHomePageOrProjects,
@@ -267,8 +269,8 @@ export const getPageStaticProps = async (context) => {
       eventsPosts,
       featuredImage: data.nodeByUri.featuredImage?.node?.sourceUrl || data.nodeByUri.featuredImage?.sourceUrl || null,
       isNewsPage: context.params?.slug?.[0] === "news", // Проверяем, является ли текущая страница страницей /news
-      isEducationPage: context.params?.slug?.[0] === "news/education",
-      isProjectsPage: context.params?.slug?.[0] === "news/projects",
+      // isEducationPage: context.params?.slug?.[0] === "news/education",
+      // isProjectsPage: context.params?.slug?.[0] === "news/projects",
       isPostPage: isPostPage,
       isContactsPage: isContactsPage,
     },

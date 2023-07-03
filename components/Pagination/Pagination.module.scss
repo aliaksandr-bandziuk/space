@@ -8,11 +8,25 @@
     font-size: 18px;
     border: 1px solid #9fc783;
     border-radius: 3px;
+    color: #9fc783;
     width: 40px;
     height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      background-color: #9fc783;
+      color: #fff;
+    }
+
+    @media screen and (max-width: 768px) {
+      &:hover {
+        background-color: transparent;
+        color: #9fc783;
+      }
+    }
   }
 
   .active {
