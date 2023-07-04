@@ -5,6 +5,10 @@
   padding: 50px 10px;
   display: grid;
   grid-gap: 10px;
+
+  @media (max-width: 768px) {
+    margin-top: 70px;
+  }
 }
 
 @media (min-width: 768px) {

@@ -1,6 +1,10 @@
 .slider {
   // margin-top: 70px;
   position: relative;
+
+  @media (max-width: 768px) {
+    margin-top: 70px;
+  }
 }
 
 .slide {
