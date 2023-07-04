@@ -33,9 +33,9 @@ export const MainMenu = ({ items, logo, icons }) => {
         targets: `.${styles.bgPrimary}`
       }
     });
-  
+
     ScrollTrigger.create({
-      start: 'top -70',
+      start: 'top -170',
       end: 99999,
       toggleClass: {
         className: styles.destinationScrolled,
@@ -70,14 +70,14 @@ export const MainMenu = ({ items, logo, icons }) => {
       }
     });
   }, []);
-  
-  
+
+
 
   return (
     <div className={styles.bgPrimary}>
       <div className={styles.container}>
         <div className={styles.logo}>
-          <Link href="/">
+          <Link onClick={closeMenus} href="/">
             <div className={styles.logoLink}>
               <Image alt="Logo" src={logo} width={50} height={50} className={styles.logoImage} />
             </div>
@@ -99,9 +99,8 @@ export const MainMenu = ({ items, logo, icons }) => {
                   </div>
                   {!!item.subMenuItems && item.subMenuItems.length > 0 && (
                     <div
-                      className={`${styles['sub-menu-arrow']} ${
-                        openSubMenus.includes(item.id) ? styles.open : ''
-                      }`}
+                      className={`${styles['sub-menu-arrow']} ${openSubMenus.includes(item.id) ? styles.open : ''
+                        }`}
                       onClick={(e) => {
                         e.stopPropagation();
                         toggleSubMenu(item.id);
@@ -111,9 +110,8 @@ export const MainMenu = ({ items, logo, icons }) => {
                 </div>
                 {!!item.subMenuItems && item.subMenuItems.length > 0 && (
                   <div
-                    className={`${styles['sub-menu']} ${
-                      openSubMenus.includes(item.id) ? styles['sub-menu-open'] : ''
-                    }`}
+                    className={`${styles['sub-menu']} ${openSubMenus.includes(item.id) ? styles['sub-menu-open'] : ''
+                      }`}
                   >
                     {item.subMenuItems.map((subMenuItem) => (
                       <Link

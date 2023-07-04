@@ -10,14 +10,14 @@ export const Footer = ({
   copyright,
   developerLabel,
   developerDestination }) => {
-  
+
   return (
     <section className={styles.footer}>
       <div className={styles.container}>
         <div data-aos="fade-up" className={styles.links}>
           {(links || []).map((link) => (
             <div key={link.id}>
-              <Link href={link.destination} className={styles.link}>
+              <Link href={link.destination || "/"} className={styles.link}>
                 {link.label}
               </Link>
             </div>
@@ -47,7 +47,7 @@ export const Footer = ({
           </div>
           <div className={styles.dataItem}>
             <p className={styles.developerLabel}>Developed by:</p>
-            <Link href={developerDestination} className={styles.developerDestination}>
+            <Link href={developerDestination || "/"} className={styles.developerDestination}>
               {developerLabel}
             </Link>
           </div>

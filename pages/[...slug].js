@@ -40,12 +40,14 @@ export const getStaticPaths = async () => {
     `,
   });
 
+  const paths = [...data.pages.nodes].filter(page => page.uri !== "/").map((page) => ({
+    params: {
+      slug: page.uri.substring(1, page.uri.length - 1).split("/"),
+    },
+  }));
+
   return {
-    paths: [...data.pages.nodes].filter(page => page.uri !== "/").map((page) => ({
-      params: {
-        slug: page.uri.substring(1, page.uri.length - 1).split("/"),
-      },
-    })),
+    paths,
     fallback: "blocking",
   };
-}
+};

@@ -16,6 +16,8 @@ import { Events } from "components/Events";
 import { NewsPage } from "components/NewsPage";
 import { EducationPage } from "components/EducationPage";
 import { ScrollToTopButton } from "components/ScrollToTopButton";
+import { NotFoundPage } from "components/NotFoundPage";
+import { BannerBlock } from "components/BannerBlock";
 
 export const Page = (props) => {
   console.log("PAGE PROPS: ", props);
@@ -34,12 +36,19 @@ export const Page = (props) => {
     AOS.init();
   }, []);
 
+  if (props.error) {
+    return (
+      <NotFoundPage />
+    );
+  }
+
   return (
     <>
       <Head>
         <title>{props.seo?.title}</title>
         <meta name="description" content={props.seo?.metaDesc} />
       </Head>
+      <BannerBlock />
       <MainMenu
         items={props.mainMenuItems}
         logo={props.logo}
@@ -67,7 +76,7 @@ export const Page = (props) => {
           <Projects projectsPosts={props.projectsPosts} featuredImage={props.featuredImage} />
         </>
       }
-      {props.isNewsPage &&
+      {props.isNewsPage && !props.isEducationPage &&
         <NewsPage allPosts={props.allPosts} featuredImage={props.featuredImage} postLimit={postLimit} />
       }
       {props.isEducationPage &&

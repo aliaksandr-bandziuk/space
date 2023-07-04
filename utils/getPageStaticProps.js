@@ -8,6 +8,7 @@ import { mapFooterSocialIcons } from "./mapFooterSocialIcons";
 import { mapFooterLinks } from "./mapFooterLinks";
 
 export const getPageStaticProps = async (context) => {
+
   console.log("CONTEXT: ", context);
   const uri = context.params?.slug ? `/${context.params.slug.join("/")}/` : "/";
   const educationId = 9;
@@ -223,7 +224,9 @@ export const getPageStaticProps = async (context) => {
     },
   });
 
-  const blocks = cleanAndTransformBlocks(data.nodeByUri.blocks);
+  const nodeByUri = data.nodeByUri || null;
+
+  const blocks = cleanAndTransformBlocks(data.nodeByUri?.blocks || []);
   const isHomePage = uri === "/";
   const isHomePageOrNews = uri === "/" || uri === "/news/";
   const isNewspage = uri === "/news/";
@@ -238,14 +241,22 @@ export const getPageStaticProps = async (context) => {
   const projectsPosts = isHomePageOrProjects ? data.projectsPosts.nodes : [];
   const eventsPosts = isEventsPage ? data.eventsPosts.nodes : [];
 
-  const isPostPage = data.nodeByUri.__typename === "Post";
+  const isPostPage = data.nodeByUri?.__typename === "Post";
+
+  if (nodeByUri === null) {
+    return {
+      props: {
+        error: true,
+      },
+    };
+  }
 
   return {
     props: {
-      seo: data.nodeByUri.seo || null,
-      title: data.nodeByUri.title || null,
-      date: data.nodeByUri.date || null,
-      category: data.nodeByUri.categories?.nodes?.[0]?.name || null,
+      seo: data.nodeByUri?.seo || null,
+      title: data.nodeByUri?.title || null,
+      date: data.nodeByUri?.date || null,
+      category: data.nodeByUri?.categories?.nodes?.[0]?.name || null,
       logo: data.acfOptionsMainMenu.mainMenu.logo.sourceUrl,
       mainMenuItems: mapMainMenuItems(data.acfOptionsMainMenu.mainMenu.menuItems),
       socialIcons: mapSocialIcons(data.acfOptionsMainMenu.mainMenu.socialIcons),
@@ -267,7 +278,7 @@ export const getPageStaticProps = async (context) => {
       commentsPosts,
       projectsPosts,
       eventsPosts,
-      featuredImage: data.nodeByUri.featuredImage?.node?.sourceUrl || data.nodeByUri.featuredImage?.sourceUrl || null,
+      featuredImage: data.nodeByUri?.featuredImage?.node?.sourceUrl || data.nodeByUri?.featuredImage?.sourceUrl || null,
       isNewsPage: context.params?.slug?.[0] === "news", // Проверяем, является ли текущая страница страницей /news
       // isEducationPage: context.params?.slug?.[0] === "news/education",
       // isProjectsPage: context.params?.slug?.[0] === "news/projects",
