@@ -23,7 +23,7 @@ export const Footer = ({
             </div>
           ))}
         </div>
-        <div data-aos="fade-down" className={styles.icons}>
+        <div className={styles.icons}>
           {(icons || []).map((icon) => (
             <Link
               key={icon.id}
